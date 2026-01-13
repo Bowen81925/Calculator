@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>P1S Print Calculator</title>
+    <title>P1S Calculator</title>
     <style>
-        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
-        .container { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
-        h2 { text-align: center; color: #333; margin-bottom: 25px; }
-        .row { display: flex; align-items: center; margin-bottom: 12px; gap: 15px; background: #f9f9f9; padding: 10px; border-radius: 8px; }
-        input { width: 90px; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem; text-align: center; }
-        input:focus { border-color: #00aaff; outline: none; }
-        .label-text { flex-grow: 1; font-size: 0.95rem; color: #444; }
-        .operator { text-align: center; font-weight: bold; font-size: 1.2rem; color: #888; margin: 5px 0; }
-        .result-box { margin-top: 25px; padding: 20px; background-color: #007bff; color: white; border-radius: 12px; text-align: center; }
-        .total-price { font-size: 2.2rem; font-weight: bold; display: block; margin-top: 5px; }
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f4f9; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; }
+        h2 { text-align: center; color: #333; margin-bottom: 20px; font-size: 1.4rem; }
+        .row { display: flex; align-items: center; margin-bottom: 10px; gap: 10px; background: #fafafa; padding: 12px; border-radius: 8px; border: 1px solid #eee; }
+        input { width: 80px; padding: 8px; border: 2px solid #ddd; border-radius: 5px; font-size: 1rem; text-align: center; }
+        input:focus { border-color: #007bff; outline: none; }
+        .label-text { flex-grow: 1; font-weight: 600; color: #555; }
+        .plus { text-align: center; font-weight: bold; font-size: 1.2rem; color: #aaa; margin: 2px 0; }
+        .result-box { margin-top: 20px; padding: 15px; background-color: #28a745; color: white; border-radius: 10px; text-align: center; }
+        .total-price { font-size: 2rem; font-weight: bold; display: block; }
     </style>
 </head>
 <body>
@@ -23,45 +23,45 @@
     <h2>P1S Print Calculator</h2>
     
     <div class="row">
-        <input type="number" id="gram" value="0" oninput="calculate()" placeholder="0"> 
-        <span class="label-text"><strong>Gram</strong> x €0,022 <small>(Filament)</small></span>
+        <input type="number" id="gram" value="0" oninput="calculate()"> 
+        <span class="label-text">Gram x 0,022</span>
     </div>
 
-    <div class="operator">+</div>
+    <div class="plus">+</div>
 
     <div class="row">
-        <input type="number" id="minuten" value="0" oninput="calculate()" placeholder="0"> 
-        <span class="label-text"><strong>Minuten</strong> x €0,002 <small>(Stroom)</small></span>
+        <input type="number" id="minuten" value="0" oninput="calculate()"> 
+        <span class="label-text">Minuten x 0,002</span>
     </div>
 
-    <div class="operator">+</div>
+    <div class="plus">+</div>
 
     <div class="row">
-        <input type="number" id="cent" value="0" oninput="calculate()" placeholder="0"> 
-        <span class="label-text"><strong></strong>Euro<small></small></span>
+        <input type="number" id="centen" value="0" oninput="calculate()"> 
+        <span class="label-text">Cent</span>
     </div>
 
     <div class="result-box">
-        <span>Totale Printkosten:</span>
+        <span>Totaalbedrag:</span>
         <span class="total-price" id="total">€ 0,00</span>
     </div>
 </div>
 
 <script>
     function calculate() {
-        // Waarden ophalen
+        // Waarden ophalen uit de velden
         const gram = parseFloat(document.getElementById('gram').value) || 0;
         const minuten = parseFloat(document.getElementById('minuten').value) || 0;
-        const personeelCent = parseFloat(document.getElementById('cent').value) || 0;
+        const centenInput = parseFloat(document.getElementById('centen').value) || 0;
 
-        // Berekening
-        const kostenFilament = gram * 0.022;
-        const kostenStroom = minuten * 0.002;
-        const kostenPersoneel = (0.01 * personeelCent) / 100; // Omrekenen van cent naar euro
+        // De berekening
+        const deel1 = gram * 0.022;
+        const deel2 = minuten * 0.002;
+        const deel3 = centenInput / 100; // Zet de ingevulde centen om naar euro's
 
-        const totaal = kostenFilament + kostenStroom + kostenPersoneel;
+        const totaal = deel1 + deel2 + deel3;
 
-        // Resultaat tonen
+        // Resultaat mooi weergeven
         document.getElementById('total').innerText = '€ ' + totaal.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 </script>
