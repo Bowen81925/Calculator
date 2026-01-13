@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>P1S Uitgebreide Calculator</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f0f2f5; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; }
+        .container { background: white; padding: 2rem; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 100%; max-width: 450px; }
+        h2 { text-align: center; color: #333; margin-bottom: 25px; }
+        .row { display: flex; align-items: center; margin-bottom: 12px; gap: 15px; background: #f9f9f9; padding: 10px; border-radius: 8px; }
+        input { width: 90px; padding: 10px; border: 2px solid #ddd; border-radius: 6px; font-size: 1rem; text-align: center; }
+        input:focus { border-color: #00aaff; outline: none; }
+        .label-text { flex-grow: 1; font-size: 0.95rem; color: #444; }
+        .operator { text-align: center; font-weight: bold; font-size: 1.2rem; color: #888; margin: 5px 0; }
+        .result-box { margin-top: 25px; padding: 20px; background-color: #007bff; color: white; border-radius: 12px; text-align: center; }
+        .total-price { font-size: 2.2rem; font-weight: bold; display: block; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>P1S Print Calculator</h2>
+    
+    <div class="row">
+        <input type="number" id="gram" value="0" oninput="calculate()" placeholder="0"> 
+        <span class="label-text"><strong>Gram</strong> x €0,022 <small>(Filament)</small></span>
+    </div>
+
+    <div class="operator">+</div>
+
+    <div class="row">
+        <input type="number" id="minuten" value="0" oninput="calculate()" placeholder="0"> 
+        <span class="label-text"><strong>Minuten</strong> x €0,002 <small>(Stroom)</small></span>
+    </div>
+
+    <div class="operator">+</div>
+
+    <div class="row">
+        <input type="number" id="cent" value="0" oninput="calculate()" placeholder="0"> 
+        <span class="label-text"><strong>Personeel</strong> cent p/m <small>(Arbeid)</small></span>
+    </div>
+
+    <div class="result-box">
+        <span>Totale Printkosten:</span>
+        <span class="total-price" id="total">€ 0,00</span>
+    </div>
+</div>
+
+<script>
+    function calculate() {
+        // Waarden ophalen
+        const gram = parseFloat(document.getElementById('gram').value) || 0;
+        const minuten = parseFloat(document.getElementById('minuten').value) || 0;
+        const personeelCent = parseFloat(document.getElementById('cent').value) || 0;
+
+        // Berekening
+        const kostenFilament = gram * 0.022;
+        const kostenStroom = minuten * 0.002;
+        const kostenPersoneel = (minuten * personeelCent) / 100; // Omrekenen van cent naar euro
+
+        const totaal = kostenFilament + kostenStroom + kostenPersoneel;
+
+        // Resultaat tonen
+        document.getElementById('total').innerText = '€ ' + totaal.toLocaleString('nl-NL', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+</script>
+
+</body>
+</html>
