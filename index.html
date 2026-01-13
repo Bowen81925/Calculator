@@ -57,7 +57,7 @@
         // Berekening
         const kostenFilament = gram * 0.022;
         const kostenStroom = minuten * 0.002;
-        const kostenPersoneel = (minuten * personeelCent) / 100; // Omrekenen van cent naar euro
+        const kostenPersoneel = (0.01 * personeelCent) / 100; // Omrekenen van cent naar euro
 
         const totaal = kostenFilament + kostenStroom + kostenPersoneel;
 
